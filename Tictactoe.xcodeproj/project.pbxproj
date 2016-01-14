@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		7B9B523C1C484F38004C8171 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B523B1C484F38004C8171 /* main.m */; };
 		7B9B523F1C484F38004C8171 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B523E1C484F38004C8171 /* AppDelegate.m */; };
-		7B9B52421C484F38004C8171 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B52411C484F38004C8171 /* ViewController.m */; };
 		7B9B52451C484F38004C8171 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B9B52431C484F38004C8171 /* Main.storyboard */; };
 		7B9B52471C484F38004C8171 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B9B52461C484F38004C8171 /* Assets.xcassets */; };
 		7B9B524A1C484F38004C8171 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B9B52481C484F38004C8171 /* LaunchScreen.storyboard */; };
+		B92AB3161C48536200F91FA4 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B92AB3151C48536200F91FA4 /* RootViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +20,12 @@
 		7B9B523B1C484F38004C8171 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B9B523D1C484F38004C8171 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7B9B523E1C484F38004C8171 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7B9B52401C484F38004C8171 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		7B9B52411C484F38004C8171 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7B9B52441C484F38004C8171 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B9B52461C484F38004C8171 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B9B52491C484F38004C8171 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B9B524B1C484F38004C8171 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B92AB3141C48536200F91FA4 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = ../RootViewController.h; sourceTree = "<group>"; };
+		B92AB3151C48536200F91FA4 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = ../RootViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +58,9 @@
 		7B9B52391C484F38004C8171 /* Tictactoe */ = {
 			isa = PBXGroup;
 			children = (
-				7B9B523D1C484F38004C8171 /* AppDelegate.h */,
-				7B9B523E1C484F38004C8171 /* AppDelegate.m */,
-				7B9B52401C484F38004C8171 /* ViewController.h */,
-				7B9B52411C484F38004C8171 /* ViewController.m */,
 				7B9B52431C484F38004C8171 /* Main.storyboard */,
+				B92AB3141C48536200F91FA4 /* RootViewController.h */,
+				B92AB3151C48536200F91FA4 /* RootViewController.m */,
 				7B9B52461C484F38004C8171 /* Assets.xcassets */,
 				7B9B52481C484F38004C8171 /* LaunchScreen.storyboard */,
 				7B9B524B1C484F38004C8171 /* Info.plist */,
@@ -74,6 +72,8 @@
 		7B9B523A1C484F38004C8171 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7B9B523D1C484F38004C8171 /* AppDelegate.h */,
+				7B9B523E1C484F38004C8171 /* AppDelegate.m */,
 				7B9B523B1C484F38004C8171 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -149,9 +149,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B9B52421C484F38004C8171 /* ViewController.m in Sources */,
 				7B9B523F1C484F38004C8171 /* AppDelegate.m in Sources */,
 				7B9B523C1C484F38004C8171 /* main.m in Sources */,
+				B92AB3161C48536200F91FA4 /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +264,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Tictactoe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Lemont.Tictactoe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -275,6 +276,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Tictactoe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Lemont.Tictactoe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -300,6 +302,7 @@
 				7B9B52501C484F38004C8171 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
