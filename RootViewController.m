@@ -23,7 +23,6 @@
 @property int turn;
 @property NSArray *randomButtons;
 @property NSMutableSet *pressedButtons;
-@property NSMutableSet *winCheck;
 @end
 
 @implementation RootViewController
@@ -31,41 +30,105 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.pressedButtons = [NSMutableSet new];
-    self.winCheck = [NSMutableSet new];
     self.turn = 0;
     self.randomButtons = @[self.buttonOne, self.buttonTwo, self.buttonThree, self.buttonFour, self.buttonFive, self.buttonSix, self.buttonSeven, self.buttonEight, self.buttonNine];
-    //NSLog(@"%@", self.randomButtons);
-
 }
 
 - (IBAction)onButtonTapped:(UIButton *)sender {
-    NSString *identifier = [NSString stringWithFormat:@"%lu", sender.tag];
-    [sender setTitle:@"X" forState:normal];
-    [self.pressedButtons addObject:identifier];
-    [self.winCheck addObject:[identifier stringByAppendingString:@"X"]];
-    
-    
-    
-    if ([self.pressedButtons count] < 8) {
-        [self dumbassAI:sender];
+    if (self.turn == 0) {
+        NSString *identifier = [NSString stringWithFormat:@"%lu", (long)sender.tag];
+        
+        if (![self.pressedButtons containsObject:identifier]) {
+            [sender setTitle:@"X" forState:normal];
+            [self.pressedButtons addObject:identifier];
+            NSLog(@"%@", sender.titleLabel.text);
+            [self checkForWin];
+            
+            if ([self.pressedButtons count] < 9) {
+                [self dumbassAI:sender];
+            }
+        }
     }
-    NSLog(@"%@", self.winCheck);
 }
 
 -(void)dumbassAI:(UIButton *)sender {
-    
     int randomizer = arc4random_uniform(8);
     NSString *check = [NSString stringWithFormat:@"%i", randomizer];
-    for (int i = 0; i < 1; i++) {
-        if ([self.pressedButtons containsObject:check]) {
-            [self dumbassAI:sender];
-        } else {
-            [self.randomButtons[randomizer] setTitle:@"O" forState:normal];
-            [self.pressedButtons addObject:check];
-            [self.winCheck addObject:[check stringByAppendingString:@"O"]];
+    if ([self.pressedButtons containsObject:check]) {
+        [self dumbassAI:sender];
+    } else {
+        [self.randomButtons[randomizer] setTitle:@"O" forState:normal];
+        [self.pressedButtons addObject:check];
+        [self checkForWin];
+    }
+}
+
+
+- (void) checkForWin {
+    NSLog(@"OMG THERE HAVE BEEN %lu BUTTONS PLAYED", (unsigned long)self.pressedButtons.count);
+    int X = 0;
+    int O = 0;
+    int restartCheck = 0;
+    NSArray *winSequences = @[@0, @1, @2, @3, @4, @5, @6, @7, @8, @0, @3, @6, @1, @4, @7, @2, @5, @8, @0, @4, @8, @2, @4, @6];
+    for (NSNumber *box in winSequences) {
+        int fixNumber = [box intValue];
+        NSLog([[self.randomButtons[fixNumber] titleLabel] text]);
+        restartCheck++;
+        
+        if ([[[self.randomButtons[fixNumber] titleLabel] text]  isEqual: [NSString stringWithFormat:@"X"]]) {
+            X++;
+            NSLog(@"%i, %i, %i", X, O, restartCheck);
 
         }
+        else if([[[self.randomButtons[fixNumber] titleLabel] text]  isEqual: [NSString stringWithFormat:@"O"]])
+        {
+            O++;
+            NSLog(@"%i, %i, %i", X, O, restartCheck);
+
+        }
+        if (X == 3) {
+            self.whichPlayerLabel.text = @"X WINS!";
+            self.turn = 1;
+            X = 0;
+            O = 0;
+            restartCheck = 0;
+            NSLog(@"%i, %i, %i", X, O, restartCheck);
+
+            break;
+        }
+        if (O == 3) {
+            self.whichPlayerLabel.text = @"O WINS!";
+            self.turn = 1;
+            X = 0;
+            O = 0;
+            restartCheck = 0;
+            NSLog(@"%i, %i, %i", X, O, restartCheck);
+
+            break;
+        }
+        if (restartCheck == 3)
+        {
+            X = 0;
+            O = 0;
+            restartCheck = 0;
+        }
+        if (self.pressedButtons.count == 9) {
+            self.whichPlayerLabel.text = @"IT'S A TIE!";
+        }
+        
     }
+}
+
+
+- (IBAction)startOverButton:(UIButton *)sender {
+    for (int i = 0; i < 9; i++) {
+        [self.randomButtons[i] setTitle:@" " forState:normal];
+    }
+    self.turn = 0;
+    self.whichPlayerLabel.text = @"TIC TAC TOE";
+    [self.pressedButtons removeAllObjects];
+    NSLog(@"STARTED OVER");
+    
 }
 
 
