@@ -94,9 +94,9 @@
             restartCheck = 0;
             NSLog(@"%i, %i, %i", X, O, restartCheck);
 
-            break;
+            return;
         }
-        if (O == 3) {
+        else if (O == 3) {
             self.whichPlayerLabel.text = @"O WINS!";
             self.turn = 1;
             X = 0;
@@ -104,7 +104,7 @@
             restartCheck = 0;
             NSLog(@"%i, %i, %i", X, O, restartCheck);
 
-            break;
+            return;
         }
         if (restartCheck == 3)
         {
@@ -114,6 +114,7 @@
         }
         if (self.pressedButtons.count == 9) {
             self.whichPlayerLabel.text = @"IT'S A TIE!";
+            return;
         }
         
     }
