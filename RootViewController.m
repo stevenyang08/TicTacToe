@@ -22,14 +22,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *whichPlayerLabel;
 @property int turn;
 @property NSArray *randomButtons;
-@property NSMutableArray *pressedButtons;
-
+@property NSMutableSet *pressedButtons;
+@property NSMutableSet *winCheck;
 @end
 
 @implementation RootViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.pressedButtons = [NSMutableSet new];
+    self.winCheck = [NSMutableSet new];
     self.turn = 0;
     self.randomButtons = @[self.buttonOne, self.buttonTwo, self.buttonThree, self.buttonFour, self.buttonFive, self.buttonSix, self.buttonSeven, self.buttonEight, self.buttonNine];
     //NSLog(@"%@", self.randomButtons);
@@ -37,27 +39,33 @@
 }
 
 - (IBAction)onButtonTapped:(UIButton *)sender {
-    NSUInteger identifier = sender.tag;
+    NSString *identifier = [NSString stringWithFormat:@"%lu", sender.tag];
     [sender setTitle:@"X" forState:normal];
-    [self dumbassAI:sender];
-    NSString *tagNum = [NSString stringWithFormat:@"%lu", sender.tag];
-    [self.pressedButtons addObject:tagNum];
+    [self.pressedButtons addObject:identifier];
+    [self.winCheck addObject:[identifier stringByAppendingString:@"X"]];
+    
+    
+    
+    if ([self.pressedButtons count] < 8) {
+        [self dumbassAI:sender];
+    }
+    NSLog(@"%@", self.winCheck);
 }
 
--(NSUInteger)dumbassAI:(UIButton *)sender {
-    if (self.turn == 0) {
-        int location = arc4random_uniform(8);
-        NSString *check = [NSString stringWithFormat:@"%i", location];
-        for (int i = 0; i < 1; i++) {
-            if ([self.pressedButtons containsObject:check]) {
-                i = 0;
-            } else {
-                
-            }
+-(void)dumbassAI:(UIButton *)sender {
+    
+    int randomizer = arc4random_uniform(8);
+    NSString *check = [NSString stringWithFormat:@"%i", randomizer];
+    for (int i = 0; i < 1; i++) {
+        if ([self.pressedButtons containsObject:check]) {
+            [self dumbassAI:sender];
+        } else {
+            [self.randomButtons[randomizer] setTitle:@"O" forState:normal];
+            [self.pressedButtons addObject:check];
+            [self.winCheck addObject:[check stringByAppendingString:@"O"]];
+
         }
-        NSLog(@"%@", [[[self.randomButtons objectAtIndex:location] titleLabel] text]);
     }
-    return 1;
 }
 
 
