@@ -20,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonEight;
 @property (weak, nonatomic) IBOutlet UIButton *buttonNine;
 @property (weak, nonatomic) IBOutlet UILabel *whichPlayerLabel;
+@property int turn;
+@property NSArray *randomButtons;
+@property NSMutableArray *pressedButtons;
 
 @end
 
@@ -27,9 +30,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.turn = 0;
+    self.randomButtons = @[self.buttonOne, self.buttonTwo, self.buttonThree, self.buttonFour, self.buttonFive, self.buttonSix, self.buttonSeven, self.buttonEight, self.buttonNine];
+    //NSLog(@"%@", self.randomButtons);
+
 }
 
 - (IBAction)onButtonTapped:(UIButton *)sender {
+    NSUInteger identifier = sender.tag;
+    [sender setTitle:@"X" forState:normal];
+    [self dumbassAI:sender];
+    NSString *tagNum = [NSString stringWithFormat:@"%lu", sender.tag];
+    [self.pressedButtons addObject:tagNum];
+}
+
+-(NSUInteger)dumbassAI:(UIButton *)sender {
+    if (self.turn == 0) {
+        int location = arc4random_uniform(8);
+        NSString *check = [NSString stringWithFormat:@"%i", location];
+        for (int i = 0; i < 1; i++) {
+            if ([self.pressedButtons containsObject:check]) {
+                i = 0;
+            } else {
+                
+            }
+        }
+        NSLog(@"%@", [[[self.randomButtons objectAtIndex:location] titleLabel] text]);
+    }
+    return 1;
 }
 
 
